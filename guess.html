@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the number| QUICK Games</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <a href="./index.html">
+            <h2>Quick Games</h2>
+        </a>
+        <nav class="navbar">
+            <a href="./index.html">
+                <h3>Home</h3>
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Guess the number</h1>
+
+
+        <div class="guessContainer">
+            <div class="guessTitleBlock">
+                <div class="guessTitle">Guess a number between 1 and 20  
+                </div>    
+                <div class="guessTimer">
+                    Timer: <span id="guessTimerCounter">10</span>
+                </div>
+            </div>  
+            <div class="guessResult">Guess a number between 1 and 20 </div>  
+            <div id="guessBtnContainer">
+                
+            </div>
+        
+        </div>
+    </main>
+
+    <footer>
+    <h3>Copyrights 2022 Quick Games Productions</h3>
+
+    </footer>
+    <script src="./script.js"></script>
+    <script>
+        var guessNumber;
+        var timerId;
+        //guess a number
+        window.onload = function() {
+            // Generate or reset Guess Btns
+            resetGuessBtns();
+        }
+
+        // Reset Buttons
+        function resetGuessBtns() {
+            let guessBtnContainer = document.getElementById('guessBtnContainer')
+            let guessBtnContent = "";
+
+            for(let i = 1; i<=20; i++){
+                guessBtnContent   += `<button type='button' class='guessBtns' id='guess-${i}' onclick='checkGuessNumber(${i})'>${i}</button> `
+
+            }
+
+            guessBtnContainer.innerHTML = guessBtnContent;
+        }
+
+        // Start Game
+        function startGame(isFresh = false) {
+            // Check before Generating btns
+            if(!isFresh) resetGuessBtns();
+            guessNumber = Math.floor((Math.random() * 20) + 1);
+            timerId = startTimer(10, 'guessTimerCounter', stopGame);
+
+        }
+
+        // Stop Game
+        function stopGame(status = "lost") {
+            let feedbackMsg = (status == "lost") ? "Game over!!!" : "You won!!";
+            alert(feedbackMsg);
+            clearInterval(timerId);
+            let prompt = confirm("Do you want to play another Game?");
+            if(prompt) {
+                startGame();
+            } else {
+                // Redirect to Homepage
+                location.href = "index.html";
+            }
+        }
+
+        // Check Guess Number
+        function checkGuessNumber(number) {
+            let guessNumberID = document.getElementById(`guess-${number}`);
+            if(guessNumber == number){
+                guessNumberID.classList.add("success");
+                disabelOtherButtons(number); 
+                stopGame("won");
+            } else {
+                guessNumberID.classList.add("error");
+            }
+            guessNumberID.disabled = true;
+        }
+
+        function disabelOtherButtons(index = 0){
+            let allButtons =  document.getElementsByClassName('guessBtns');
+            for(let i = 0; i < allButtons.length; i++) {
+                allButtons[i].disabled = true
+                if(i == (index - 1)) continue;
+                allButtons[i].classList.add('error');
+            }
+        }
+
+        //Initialize game 
+        startGame()
+    </script>
+</body>
+</html>

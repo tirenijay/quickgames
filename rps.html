@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors| QUICK Games</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <a href="./index.html">
+            <h2>Quick Games</h2>
+        </a>
+        <nav class="navbar">
+            <a href="./index.html">
+                <h3>Home</h3>
+            </a>
+        </nav>
+    </header>
+
+    <main class="text-center">
+        <h1>Rock Paper Scissors</h1>
+        <br/>
+        <hr/>
+
+        <div class="rpsContainer">
+            <div class="computerRps">
+                <h3 class="rpsUser">Computer</h3>
+                <p><em>Computer is thinking...</em>🤔</p>
+                <br/>
+                <div class="rpsOptionsContainer" id="computerOption">
+                    <div class="rpsOptions" id="rock-computer"><img src="./assetss/rock.jpg" alt="Rock"></div>
+                    <div class="rpsOptions" id="paper-computer"><img src="./assetss/paper.jpg" alt="Paper"></div>
+                    <div class="rpsOptions" id="scissors-computer"><img src="./assetss/scissors.jpg" alt="Scissors"></div>
+                </div> 
+            </div>
+
+            <div class=" versusRPS">
+                <h1>VS</h1>
+            </div>
+
+            <h3 class="rpsUser">You</h3>
+            <p><em>Select an option </em>🙂</p>
+            <br/>
+            <div class="rpsOptionsContainer" id="userOption">
+                <div class="rpsOptions userRpsOptions" id="rock-user"><img src="./assetss/rock.jpg" alt="Rock"></div>
+                <div class="rpsOptions userRpsOptions" id="paper-user"><img src="./assetss/paper.jpg" alt="Paper"></div>
+                <div class="rpsOptions userRpsOptions" id="scissors-user"><img src="./assetss/scissors.jpg" alt="Scissors"></div>
+            </div>
+        </div>
+
+        <hr/>
+        <div class="rpsScore">
+            <div>
+                <input type="text" class="rpsScoreBox" id="computerRPS" disabled>
+                <h3>Computer</h3>
+            </div>
+            <h3 style="margin: 0 20px 0 10px">VS</h3>
+            <div>
+                <input type="text" class="rpsScoreBox" id="userRPS" disabled> 
+                <h3>User</h3>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Start Modal -->
+    <div class="modal" id="startModalContainer">
+        <div class="modal-body">
+            <h2>Select Game Length</h2>
+            <p id="resultBody">
+                <form>
+                    <label for="gameLength1" class="radioMargin">
+                        <input type="radio" id="gameLength1" name="gameLength" value="1">1
+                    </label>
+                    <label for="gameLength2" class="radioMargin">
+                        <input type="radio" id="gameLength2" name="gameLength" value="3">3
+                    </label>
+                    <label for="gameLength3" class="radioMargin">
+                        <input type="radio" id="gameLength3"  name="gameLength" value="5">5
+                    </label>
+                </form>
+            </p>
+            <button class="modal-btn" id="resultBtn" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal" id="resultModalContainer">
+        <div class="modal-body">
+            <h2 id="resultText"></h2>
+            <h5 id="resultDesc" class="modalScore"></h5>
+            <button class="modal-btn" id="resultBtn" onclick="closeResult()">Continue</button>
+
+        </div>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div class="modal" id="endModalContainer">
+        <div class="modal-body" style="padding: 24px;">
+            <h2 id="finalResult"></h2>
+            <h5 id="finalResultDesc" class="modalScore"></h5>
+            <button class="finalResult-btn" style="color: white; background-color: rgb(10, 27, 103);" onclick="showStartGame()">Start New Game</button>
+            <button class="finalResult-btn" style="color: white; background-color: rgb(240, 13, 13);" onclick="goHome()">Exit Game</button>
+        </div>
+    </div>
+
+
+
+
+    <footer>
+        <h3>Copyrights 2022 Quick Games Productions</h3>
+    </footer>
+
+    <script src="./script.js"></script>
+    <script>
+        // Call Start Game Function on Page load
+        window.onload = showStartGame();
+
+        // var computerValue;
+        var isSelected = false;
+        var canStartSelection = false;
+        var myGameLength, currentRound;
+
+        function generateComputerValue() {
+            let possibleOptions = ["rock", "paper", "scissors", "paper", "scissors", "rock", "paper", "rock", "scissors"];
+            // Select computer value
+            let randomIndex = Math.floor(Math.random() * possibleOptions.length);
+            return possibleOptions[randomIndex];
+        }
+
+        function checkAnswer(userValue, computerValue) {
+            switch(userValue) {
+                case "paper":
+                    if(computerValue == "paper") {
+                        // Draw
+                        return "draw";
+                    } else if(computerValue == "rock") {
+                        // User Wins
+                        return "win"
+                    } else {
+                        // Computer Wins
+                        return "lose";
+                    }
+                    break;
+                
+                case "rock":
+                    if(computerValue == "paper") {
+                        // Computer Wins
+                        return "lose";
+                    } else if(computerValue == "rock") {
+                        // Draw
+                        return "draw"
+                    } else {
+                        // User Wins
+                        return "win"
+                    }
+                    break;
+
+                case "scissors":
+                    if(computerValue == "paper") {
+                        return "win"
+                        // User Wins
+                    } else if(computerValue == "rock") {
+                        // Computer Wins
+                        return "lose"
+                    } else {
+                        // Draw
+                        return "draw";
+                    }
+                    break;
+            }
+                
+        }
+
+        // Event listener for RPS options
+        const rpsOptionsHolder = document.querySelectorAll('.userRpsOptions');
+
+        rpsOptionsHolder.forEach(option => {
+            option.addEventListener('click', function handleClick(event) {
+                if(!isSelected && canStartSelection) {
+                    option.classList.add("rpsSelected");
+                    isSelected = true;
+                    // Generate Computer Value
+                    let computerValue = generateComputerValue();
+                    // Select Computer Value
+                    document.getElementById(`${computerValue}-computer`).classList.add("rpsSelected");
+                    // Get UserValue
+                    let userValue = option.id.split("-")[0];
+                    // Check the result
+                    let result = checkAnswer(userValue, computerValue);
+                    // Retrieve Scores
+                    let userScore = parseFloat(document.getElementById("userRPS").value);
+                    let computerScore = parseFloat(document.getElementById("computerRPS").value);
+                    // Calculate Scores
+                    if(result == "draw") {
+                        userScore += 0.5;
+                        computerScore += 0.5;
+                    } else if(result == "win") {
+                        userScore += 1;            
+                    } else {
+                        computerScore += 1;
+                    }
+                    // Update Scores
+                    document.getElementById("userRPS").value = userScore;
+                    document.getElementById("computerRPS").value = computerScore;
+                    // Display Result
+                    setTimeout(function() {
+                        (myGameLength <= (currentRound - 1)) ? displayResult(userScore, computerScore) : displayCurrentScore(result,  userScore, computerScore);
+                    }, 1000); 
+                    // Uodate current round
+                    currentRound++;   
+                } 
+                
+
+                
+            });
+        });
+
+        // Dipslay Result
+        function displayResult(userScore, computerScore) {
+            let result = "draw"
+            if(userScore > computerScore) {
+                result = "win"
+            } else if(computerScore > userScore) {
+                result = "lose"
+            }
+            let resultObj = {
+                "lose" : "You Lost!! Try again.",
+                "draw" : "You Drew!! Fair Enough.",
+                "win" : "You Won!! Bravo.",
+            }
+            document.getElementById("endModalContainer").style.display = "block";
+            document.getElementById("finalResult").innerHTML = resultObj[result];
+            document.getElementById("finalResultDesc").innerHTML = `${userScore} - ${computerScore}`;
+        }
+
+
+        function displayCurrentScore(result, userScore, computerScore) {
+            let resultObj = {
+                "lose" : "Oops, You lost this round.",
+                "draw" : "Hmmm, You drew this round.",
+                "win" : "Nicee, You won this round.",
+            }
+            document.getElementById("resultModalContainer").style.display = "block";
+            document.getElementById("resultText").innerHTML = resultObj[result];
+            document.getElementById("resultDesc").innerHTML = `${userScore} - ${computerScore}`;
+
+        }
+
+        // Reset RPS options
+        function resetRPSoptions() {
+            let elements = document.getElementsByClassName("rpsOptions");
+            for(let i = 0; i < elements.length; i++) {
+                elements[i].classList.remove("rpsSelected");
+            }
+        }
+
+        // Close Result
+        function closeResult() {
+            document.getElementById("resultModalContainer").style.display = "none";
+            resetRPSoptions();
+            // Reset isSelected
+            isSelected = false;
+            canStartSelection = true;
+        }
+
+        // start nrew game
+        function startGame() {
+            resetRPSoptions();
+            // Check if game length was selected
+            let gameLength = document.querySelectorAll('input[name="gameLength"]:checked');
+            if(gameLength.length > 0) {
+                myGameLength = parseInt(gameLength[0].value);
+                // Update Current ROund
+                currentRound = 1;
+            } else {
+                alert("Error: Select Game Length.")
+                return;
+            }
+            // Remove Modal
+            document.getElementById("startModalContainer").style.display = "none";
+            // Set the scores to zeros
+            document.getElementById("userRPS").value = "0";
+            document.getElementById("computerRPS").value = "0";
+            // Update Start Selection
+            isSelected = false;
+            canStartSelection = true;
+
+        }
+
+        // show start new game
+        function showStartGame() {
+            document.getElementById("endModalContainer").style.display = "none";
+            document.getElementById("startModalContainer").style.display = "block";
+            // Set the scores to zeros
+            document.getElementById("userRPS").value = "-";
+            document.getElementById("computerRPS").value = "-";
+            // Update Start Selection
+            canStartSelection = false;
+        }
+
+    </script>
+</body>

@@ -1,0 +1,309 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:root {
+    --bg-color:#023047;
+    --text-color:#fb8500;
+    --alt-color:#8ecae6;
+    --pry-color:#ffb703;
+    --link-color:#821997;
+}
+html {
+    background-color:blue ;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-height: 50vh;
+    max-width: 1224px;
+    margin: auto;
+
+}
+a {
+    text-decoration: none;
+    color: var(--link-color)
+}
+
+header,footer {
+    background-color: var(--pry-color);
+    color:var(--bg-color);
+    padding: 20px;
+}
+    header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+header, a:hover {
+    text-decoration:underline ;
+}
+
+
+main {
+    padding: 30px 20px;
+}
+footer {
+    text-align: center;
+}
+main h1  {
+    margin-bottom: 10px;
+}
+
+.desc {
+    max-width: 500px;
+    margin:10px 0  ;
+}
+
+.gameContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.gameItem {
+    background-color:rgb(0, 63, 252);
+    color:lawngreen;
+    margin: 10px;
+    width: 250px;
+    padding: 20px;
+
+}
+.gameItem img {
+    height: 150px;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+}
+
+.gameItem:hover {
+    transform: scale(1.1);
+}
+
+.gameItemDesc {
+    padding: 20px;
+}
+.gameItemDesc h6{
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.gameBtn {
+    display: block;
+    text-align: center;
+    background-color: var(--link-color);
+    color: var(--text-color);
+    padding: 8px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.gameBtn:hover {
+    color: var(--link-color);
+    background-color: var(--text-color);
+}
+.gameItemDesc p {
+    font-size: 16px;
+    color: lawngreen;
+    margin-bottom: 18px;
+}
+
+@media (max-width: 800px) {
+    .gameContainer {
+        flex-wrap: wrap;
+    }
+}
+.title  {
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom: 10px;
+}
+
+.guessBtns:hover {
+    background-color:var(--link-color) ;
+    color: chartreuse;
+
+}
+
+.guessBtns .success {
+    background-color:darkorange ;
+
+}
+
+
+.guessBtns .error {
+    background-color:rgb(148, 38, 38) ;
+}
+.guessBtns {
+    margin: 5px;
+    padding: 10px;
+    width: 50px;
+    font-size: 1.3rem;
+    text-align: center;
+    box-shadow:3px 4px 5px 4px rgba(0,0,0,0,4) ;
+    font-weight: bold;
+    background-color: chartreuse;
+    border: none;
+    border-radius: 8px;
+    color:var(--link-color);
+
+}
+
+.guessTimer {
+    background-color: #023047;
+    color:aqua;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    width: 85px;
+}
+
+.error, .error:hover {
+    background-color: red;
+    color: white;
+}
+
+.success, .success:hover {
+    background-color: #7cfc00;
+    color:rgb(26, 19, 243);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.guessResult {
+    margin:10px;
+    padding: 10px;
+    background-color:var(--pry-color);
+    color:var(--bg-color);
+    text-align: center;
+}
+
+#guessBtnContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.rpsUser {
+    margin-top: 5px;
+    font-size: 30px;
+}
+
+.rpsOptionsContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.rpsOptions img {
+    width: 85px;
+    height: 85px;
+    border-radius: 8px;
+    margin: 8px;
+    box-shadow: inset 10px 5px #aac;
+}
+
+.rpsOptions img:hover {
+    transform: scale(1.1);
+}
+
+.versusRPS {
+    display: inline-block;
+    background-color: var(--text-color);
+    color: var(--bg-color);
+    padding: 12px 100px 8px;
+    width: 40vw;
+    margin: 10px;
+}
+
+.rpsSelected {
+    opacity: 0.4; 
+}
+
+.rpsSelected img:hover {
+    transform: none;
+}
+
+.rpsScore {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.rpsScoreBox {
+    width: 60px;
+    padding: 5px;
+    font-size: 24px;
+    margin-bottom: 3px;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+}
+
+/** Modal **/
+.modal {
+    position: absolute;
+    background-color: #ccc;;
+    top: 50%;
+    left: 50vw; 
+    min-height: 200px;
+    min-width: 300px;
+    max-width: 500px;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+    text-align: center;
+    /* display: none; */
+    display: none;
+}
+
+.modal-body {
+    color: black;
+    padding: 20px;
+}
+
+.modal-body h2 {
+    color: black;
+    font-size: 32px;
+}
+
+#resultBody {
+    padding: 10px 0;
+    font-size: 24px;
+}
+
+.radioMargin {
+    margin: 10px;
+}
+
+.modal-btn {
+    background:#ffb703;
+    color:#023047;
+    padding: 8px;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    border-radius: 8px;
+}
+
+.finalResult-btn {
+    cursor: pointer;
+    margin-top: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+}
+
+.modalScore {
+    font-size: 1.7rem;
+    opacity: 0.9;
+    margin: 10px 0;
+}

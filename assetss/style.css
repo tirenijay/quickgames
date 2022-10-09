@@ -1,0 +1,134 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+:root {
+    --bg-color:#023047;
+    --text-color:#fb8500;
+    --alt-color:#8ecae6;
+    --pry-color:#ffb703;
+    --link-color:#821997;
+}
+html {
+    background-color:blue ;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    min-height: 50vh;
+    max-width: 1224px;
+    margin: auto;
+
+}
+a {
+    text-decoration: none;
+    color: var(--link-color)
+}
+
+header,footer {
+    background-color: var(--pry-color);
+    color:var(--bg-color);
+    padding: 20px;
+}
+    header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+header, a:hover {
+    text-decoration:underline ;
+}
+
+
+main {
+    padding: 30px 20px;
+}
+footer {
+    text-align: center;
+}
+main h1  {
+    margin-bottom: 10px;
+}
+
+.desc {
+    max-width: 500px;
+    margin:10px 0  ;
+}
+
+.gameContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.gameItem {
+    background-color:#7cfc00;
+    color: var(--link-color);
+    margin: 10px;
+    width: 250px;
+
+}
+.gameItem img {
+    height: 150px;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+}
+
+.gameItem:hover {
+    transform: scale(1.1);
+}
+
+.gameItemDesc {
+    padding: 20px;
+}
+.gameItemDesc h6{
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.gameBtn {
+    display: block;
+    text-align: center;
+    background-color: var(--link-color);
+    color: var(--text-color);
+    padding: 8px;
+    margin: 8px 0;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.gameBtn:hover {
+    color: var(--link-color);
+    background-color: var(--text-color);
+}
+.gameItemDesc p {
+    font-size: 16px;
+    color: darkcyan;
+    margin-bottom: 18px;
+}
+
+
+.success {
+    background-color: #7cfc00;
+    color:white;
+}
+
+.error {
+    background-color: red;
+    color: white;
+}
+
+@media (max-width: 800px) {
+    .gameContainer {
+        flex-wrap: wrap;
+    }
+}
+.title  {
+    text-align:center;
+    text-transform:uppercase;
+    margin-bottom: 10px;
+}
