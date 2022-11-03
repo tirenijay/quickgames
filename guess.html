@@ -28,7 +28,7 @@
                 <div class="guessTitle">Guess a number between 1 and 20  
                 </div>    
                 <div class="guessTimer">
-                    Timer: <span id="guessTimerCounter">10</span>
+                    Timer: <span id="guessTimerCounter">20</span>
                 </div>
             </div>  
             <div class="guessResult">Guess a number between 1 and 20 </div>  
@@ -71,7 +71,7 @@
             // Check before Generating btns
             if(!isFresh) resetGuessBtns();
             guessNumber = Math.floor((Math.random() * 20) + 1);
-            timerId = startTimer(10, 'guessTimerCounter', stopGame);
+            timerId = startTimer(20, 'guessTimerCounter', stopGame);
 
         }
 
